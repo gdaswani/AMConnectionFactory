@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+                        http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+	<!-- Configuration Bits -->
+
+	<cm:property-placeholder id="configPlaceHolder"
+		persistent-id="am.service.amconnectionfactory"
+		update-strategy="reload">
+		<cm:default-properties>
+			<cm:property name="amCredential.database" value="DEV" />
+			<cm:property name="amCredential.userName" value="NoUSER" />
+			<cm:property name="amCredential.password" value="NoPWD" />
+			<cm:property name="api.defaultCallTimeOutInMs"
+				value="300000" />
+			<cm:property name="pool.maxActive" value="20" />
+			<cm:property name="pool.maxIdle" value="5" />
+			<cm:property name="pool.minIdle" value="1" />
+			<cm:property name="pool.maxWait" value="30000" />
+			<cm:property name="pool.maxReuse" value="50" />
+			<cm:property name="pool.minEvictableIdleTimeMs"
+				value="450000" />
+			<cm:property name="pool.timeBetweenEvictionRunsMs"
+				value="600000" />
+			<cm:property name="amProcessManager.startingPortNumber"
+				value="10000" />
+			<cm:property name="amProcessManager.classPath"
+				value="C:\services\apache-karaf\lib\ext\jna-5.5.0.jar;C:\services\apache-karaf\lib\ext\jna-platform-5.5.0.jar;C:\services\apache-karaf\lib\other\commons-lang3-3.9.jar;C:\services\apache-karaf\deploy\AMConnectionFactory-1.0.20200101.jar" />
+			<cm:property name="amProcessManager.logPath"
+				value="C:\services\apache-karaf\data\log" />
+			<cm:property name="amProcessManager.shellPath"
+				value="C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" />
+			<cm:property name="amProcessManager.reaperScriptPath"
+				value="C:\services\apache-karaf\data\util\connfactory\scripts\HungAPIConnReaper.ps1" />
+		</cm:default-properties>
+	</cm:property-placeholder>
+
+	<!-- -->
+
+	<reference id="transactionManager"
+		interface="javax.transaction.TransactionManager" timeout="0"
+		availability="mandatory" />
+
+	<bean id="amCredential" class="am.api.model.AMCredential">
+		<argument value="${amCredential.database}" />
+		<argument value="${amCredential.userName}" />
+		<argument value="${amCredential.password}" />
+	</bean>
+
+	<bean id="amProcessManager"
+		class="am.api.wrapper.remote.AMProcessManager" init-method="init"
+		destroy-method="cleanup">
+		<property name="classPath"
+			value="${amProcessManager.classPath}" />
+		<property name="logPath" value="${amProcessManager.logPath}" />
+		<property name="maxPoolSize" value="${pool.maxActive}" />
+		<property name="startingPortNumber"
+			value="${amProcessManager.startingPortNumber}" />
+		<property name="shellPath"
+			value="${amProcessManager.shellPath}" />
+		<property name="reaperScriptPath"
+			value="${amProcessManager.reaperScriptPath}" />
+	</bean>
+
+	<bean id="amPoolableObjectFactory"
+		class="am.api.wrapper.remote.RemotePoolableObjectFactory"
+		init-method="init">
+		<property name="processManager" ref="amProcessManager" />
+		<property name="defaultCallTimeOutInMs"
+			value="${api.defaultCallTimeOutInMs}" />
+		<property name="maxReuse" value="${pool.maxReuse}" />
+	</bean>
+
+	<bean id="wrappedCF"
+		class="am.api.osgi.XAPooledAMConnectionFactory" destroy-method="close"
+		init-method="init">
+		<property name="defaultCredential" ref="amCredential" />
+		<property name="maxActive" value="${pool.maxActive}" />
+		<property name="maxIdle" value="${pool.maxIdle}" />
+		<property name="maxWait" value="${pool.maxWait}" />
+		<property name="minIdle" value="${pool.minIdle}" />
+		<property name="minEvictableIdleTimeMs"
+			value="${pool.minEvictableIdleTimeMs}" />
+		<property name="timeBetweenEvictionRunsMs"
+			value="${pool.timeBetweenEvictionRunsMs}" />
+		<property name="poolableObjectFactory"
+			ref="amPoolableObjectFactory" />
+	</bean>
+
+	<bean id="amConnectionFactory"
+		class="am.api.osgi.XAAMConnectionEnlistingWrapper" init-method="init">
+		<property name="wrappedCF" ref="wrappedCF" />
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+
+	<service ref="amConnectionFactory"
+		interface="am.api.AMConnectionFactory" />
+
+</blueprint>
