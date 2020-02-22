@@ -216,7 +216,7 @@ public class AMProcessManager {
 
 		logger.debug("Trying to instantiate new worker, currentPortNumber = {}", currentPortNumber);
 
-		final BlockingQueue<Boolean> statusQ = new ArrayBlockingQueue<Boolean>(1);
+		final BlockingQueue<Boolean> statusQ = new ArrayBlockingQueue<>(1);
 
 		ProcessInfoWorker worker;
 

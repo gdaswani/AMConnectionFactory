@@ -223,7 +223,7 @@ public class ConnectionPool {
 	}
 
 	public void performCleanup() {
-
+		// do nothing
 	}
 
 	public void returnObject(AMCredential credential, AMBaseConnection connection) {

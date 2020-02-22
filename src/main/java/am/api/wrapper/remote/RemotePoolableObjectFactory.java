@@ -41,6 +41,7 @@ public class RemotePoolableObjectFactory extends am.api.wrapper.PoolableObjectFa
 		super();
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -59,10 +60,12 @@ public class RemotePoolableObjectFactory extends am.api.wrapper.PoolableObjectFa
 		return processManager;
 	}
 
+	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(101, 103).appendSuper(super.hashCode()).append(processManager).toHashCode();
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		Assert.notNull(processManager, "processManager is required");
@@ -90,20 +93,27 @@ public class RemotePoolableObjectFactory extends am.api.wrapper.PoolableObjectFa
 
 				conn.openConnection(credential.getDatabase(), credential.getUserName(), credential.getPassword());
 
+			} catch (AMConnectionException connE) {
+
+				try {
+					conn.shutdown();
+					conn.close();
+				} catch (Exception e) {
+					logger.warn(String.format("tried to proactively shutdown connection but failed, e=[%1$s]", connE));
+				}
+
+				throw connE;
 			} catch (Exception failure) {
 
 				try {
 					conn.shutdown();
+					conn.close();
 				} catch (Exception e) {
 					logger.warn(
 							String.format("tried to proactively shutdown connection but failed, e=[%1$s]", failure));
 				}
 
-				if (failure instanceof AMConnectionException) {
-					throw failure;
-				} else {
-					throw new AMConnectionException(failure);
-				}
+				throw new AMConnectionException(failure);
 			}
 
 		} else {

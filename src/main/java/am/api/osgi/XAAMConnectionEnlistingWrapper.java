@@ -63,7 +63,7 @@ public class XAAMConnectionEnlistingWrapper implements AMConnectionFactory, Seri
 		}
 
 		public void beforeCompletion() {
-
+			// do nothing
 		}
 
 	}
@@ -72,11 +72,11 @@ public class XAAMConnectionEnlistingWrapper implements AMConnectionFactory, Seri
 
 	private final static long serialVersionUID = 1L;
 
-	private transient Map<Object, AMConnection> connectionMap = new ConcurrentHashMap<Object, AMConnection>();
+	private transient Map<Object, AMConnection> connectionMap = new ConcurrentHashMap<>();
 
 	private transient TransactionManager transactionManager;
 
-	private XAAMConnectionFactory wrappedCF;
+	private transient XAAMConnectionFactory wrappedCF;
 
 	public XAAMConnectionEnlistingWrapper() {
 		super();

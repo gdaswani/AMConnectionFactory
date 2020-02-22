@@ -52,7 +52,7 @@ public class AMConnectionDelegate {
 	public AMConnectionDelegate() {
 		super();
 		amLibrary = AMLibraryFactory.getInstance();
-		this.handleMap = new ConcurrentHashMap<AMHandle, HandleMetaData>();
+		this.handleMap = new ConcurrentHashMap<>();
 	}
 
 	private void checkInternalState() {
@@ -93,9 +93,7 @@ public class AMConnectionDelegate {
 
 		CharBuffer buffer = CharBuffer.allocate(connectionName.getBufferLength());
 
-		long status = 0L;
-
-		status = amLibrary.AmConnectionNameW(connection, buffer, new NativeLong(connectionName.getBufferLength()))
+		long status = amLibrary.AmConnectionNameW(connection, buffer, new NativeLong(connectionName.getBufferLength()))
 				.longValue();
 
 		connectionName.fromString(Native.toString(buffer.array()));
@@ -766,11 +764,8 @@ public class AMConnectionDelegate {
 	public long insertRecord(AMHandle recHandle) {
 		checkInternalState();
 
-		long id = 0L;
+		return amLibrary.AmInsertRecordW(handleAsPointer(recHandle)).longValue();
 
-		id = amLibrary.AmInsertRecordW(handleAsPointer(recHandle)).longValue();
-
-		return id;
 	}
 
 	public long isConnected() {
@@ -1078,7 +1073,7 @@ public class AMConnectionDelegate {
 	}
 
 	public List<AMHandle> getHandleKeys() {
-		return new ArrayList<AMHandle>(handleMap.keySet());
+		return new ArrayList<>(handleMap.keySet());
 	}
 
 }

@@ -36,6 +36,7 @@ public class CodedException extends RuntimeException {
 		return code;
 	}
 
+	@Override
 	public String getMessage() {
 		return String.format("[%1$s] %2$s", code, super.getMessage());
 	}

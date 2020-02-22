@@ -58,9 +58,9 @@ public class AMAPIProcess implements AMLibraryRemote {
 
 	private final static Logger LOGGER = Logger.getLogger(AMAPIProcess.class.getPackage().getName());
 
-	public final static String PARAM_RMI_SERVER_PORT = "am.server.port";
-
 	public final static String PARAM_LOG_PATH = "am.log.path";
+
+	public final static String PARAM_RMI_SERVER_PORT = "am.server.port";
 
 	private static CountDownLatch shutdownSignal = new CountDownLatch(1);
 
@@ -2214,8 +2214,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 
 			try {
 				resultJob.get(15L, TimeUnit.SECONDS);
-			} catch (ExecutionException | InterruptedException | TimeoutException e) {
+			} catch (ExecutionException | TimeoutException e) {
 				LOGGER.warning(String.format("Ignoring exception = [%1$s],  during shutdown request", e));
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
 			}
 		} finally {
 			AMAPIProcess.shutdownSignal.countDown();

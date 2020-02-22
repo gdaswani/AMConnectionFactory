@@ -25,21 +25,19 @@ import am.server.client.ReturnWithString;
 public final class ConnectionName implements Callable<ReturnWithString> {
 
 	private final AMConnectionDelegate delegate;
-	private final AMString connectionName;
+	private final AMString name;
 
-	public ConnectionName(AMConnectionDelegate delegate, AMString connectionName) {
+	public ConnectionName(AMConnectionDelegate delegate, AMString name) {
 		super();
 		this.delegate = delegate;
-		this.connectionName = connectionName;
+		this.name = name;
 	}
 
 	@Override
 	public ReturnWithString call() throws Exception {
 
-		long status = 0L;
+		long status = delegate.connectionName(name);
 
-		status = delegate.connectionName(connectionName);
-
-		return new ReturnWithString(status, connectionName);
+		return new ReturnWithString(status, name);
 	}
 }

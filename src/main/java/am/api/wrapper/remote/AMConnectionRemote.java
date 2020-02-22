@@ -1172,15 +1172,17 @@ final class AMConnectionRemote extends AMBaseConnection {
 	public AMHandle openConnection(String database, String username, String password) {
 		try {
 			return remoteLibrary.openConnection(database, username, password);
+		} catch (AMConnectionException connE) {
+
+			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
+
+			throw connE;
+
 		} catch (Exception e) {
 
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 
-			if (e instanceof AMConnectionException) {
-				throw (AMConnectionException) e;
-			} else {
-				throw new AMConnectionException(e);
-			}
+			throw new AMConnectionException(e);
 		}
 
 	}
@@ -1456,6 +1458,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return new ToStringBuilder(this).appendSuper(super.toString()).append("serverPort", serverPort)
 				.append("credential", credential).append("remoteLibrary", remoteLibrary).toString();

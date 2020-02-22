@@ -25,18 +25,18 @@ import am.server.client.ReturnWithString;
 public final class LoginName implements Callable<ReturnWithString> {
 
 	private final AMConnectionDelegate delegate;
-	private final AMString loginName;
+	private final AMString name;
 
-	public LoginName(AMConnectionDelegate delegate, AMString loginName) {
+	public LoginName(AMConnectionDelegate delegate, AMString name) {
 		super();
 		this.delegate = delegate;
-		this.loginName = loginName;
+		this.name = name;
 	}
 
 	@Override
 	public ReturnWithString call() throws Exception {
 
-		return new ReturnWithString(delegate.loginName(loginName), loginName);
+		return new ReturnWithString(delegate.loginName(name), name);
 
 	}
 }

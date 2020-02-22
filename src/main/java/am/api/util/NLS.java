@@ -19,8 +19,11 @@ package am.api.util;
 import java.util.ResourceBundle;
 
 public class NLS {
-	public static final ResourceBundle ERRORS = ResourceBundle
-			.getBundle(ResourceBundles.ERRORS.toString());
-	public static final ResourceBundle MESSAGES = ResourceBundle
-			.getBundle(ResourceBundles.MESSAGES.toString());
+
+	private NLS() {
+		super();
+	}
+
+	public static final ResourceBundle ERRORS = ResourceBundle.getBundle(ResourceBundles.ERRORS.toString());
+	public static final ResourceBundle MESSAGES = ResourceBundle.getBundle(ResourceBundles.MESSAGES.toString());
 }

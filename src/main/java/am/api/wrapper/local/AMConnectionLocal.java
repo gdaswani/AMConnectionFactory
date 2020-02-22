@@ -868,6 +868,7 @@ public final class AMConnectionLocal extends AMBaseConnection {
 
 	}
 
+	@Override
 	public String toString() {
 		return new ToStringBuilder(this).appendSuper(super.toString()).append("delegate", delegate)
 				.append("credential", credential).toString();
