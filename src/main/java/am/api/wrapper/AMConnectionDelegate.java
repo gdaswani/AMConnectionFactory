@@ -32,10 +32,10 @@ import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 
 import am.api.AMHandle;
+import am.api.AMHandleType;
 import am.api.exception.AMConnectionException;
 import am.api.model.AMDate;
 import am.api.model.AMHandleImpl;
-import am.api.model.AMHandleType;
 import am.api.model.AMString;
 import am.api.util.NLS;
 import am.server.AMLibrary;

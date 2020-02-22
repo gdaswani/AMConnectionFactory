@@ -23,6 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import am.api.AMHandle;
+import am.api.AMHandleType;
 
 public final class AMHandleImpl implements AMHandle, Serializable {
 

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with AMConnectionFactory.  If not, see <https://www.gnu.org/licenses/>.
  */
-package am.api.model;
+package am.api;
 
 public enum AMHandleType {
 	CONNECTION, RECORD, QUERY, ACTION, FIELD;
