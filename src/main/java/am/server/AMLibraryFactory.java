@@ -28,11 +28,11 @@ import com.sun.jna.Native;
 
 public class AMLibraryFactory {
 
-	private static AMLibrary INSTANCE;
+	private static AMLibrary instance;
 
 	public static synchronized AMLibrary getInstance() {
 
-		if (INSTANCE == null) {
+		if (instance == null) {
 
 			InputStream configStream = null;
 
@@ -52,9 +52,9 @@ public class AMLibraryFactory {
 
 						System.loadLibrary(apiLib);
 
-						INSTANCE = Native.loadLibrary(apiLib, AMLibrary.class);
+						instance = Native.load(apiLib, AMLibrary.class);
 
-						INSTANCE.AmStartup();
+						instance.AmStartup();
 
 					} else {
 						throw new IllegalStateException(String.format("properties file [%s] is empty", configFilePath));
@@ -71,7 +71,7 @@ public class AMLibraryFactory {
 
 		}
 
-		return INSTANCE;
+		return instance;
 
 	}
 
@@ -89,11 +89,11 @@ public class AMLibraryFactory {
 	}
 
 	public int hashCode() {
-		return new HashCodeBuilder(101, 1).appendSuper(super.hashCode()).append(INSTANCE).toHashCode();
+		return new HashCodeBuilder(101, 1).appendSuper(super.hashCode()).append(instance).toHashCode();
 	}
 
 	public String toString() {
-		return new ToStringBuilder(this).appendSuper(super.toString()).append("INSTANCE", INSTANCE).toString();
+		return new ToStringBuilder(this).appendSuper(super.toString()).append("instance", instance).toString();
 	}
 
 }
