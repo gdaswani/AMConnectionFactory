@@ -24,7 +24,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import am.api.AMConnection;
 import am.api.XAAMConnection;
-import am.api.exception.AMConnectionException;
 
 public class XAAMConnectionImpl implements XAAMConnection {
 
@@ -53,18 +52,16 @@ public class XAAMConnectionImpl implements XAAMConnection {
 			return false;
 		}
 		XAAMConnectionImpl rhs = (XAAMConnectionImpl) obj;
-		return new EqualsBuilder().append(connection, rhs.connection)
-				.append(resource, rhs.resource).isEquals();
+		return new EqualsBuilder().append(connection, rhs.connection).append(resource, rhs.resource).isEquals();
 	}
 
 	@Override
-	public AMConnection getConnection() throws AMConnectionException {
+	public AMConnection getConnection() {
 		return connection;
 	}
 
 	public String toString() {
-		return new ToStringBuilder(this).append("connection", connection)
-				.append("resource", resource).toString();
+		return new ToStringBuilder(this).append("connection", connection).append("resource", resource).toString();
 	}
 
 	@Override
@@ -73,8 +70,7 @@ public class XAAMConnectionImpl implements XAAMConnection {
 	}
 
 	public int hashCode() {
-		return new HashCodeBuilder(103, 105).append(connection)
-				.append(resource).toHashCode();
+		return new HashCodeBuilder(103, 105).append(connection).append(resource).toHashCode();
 	}
 
 }

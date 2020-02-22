@@ -16,7 +16,6 @@
  */
 package am.api;
 
-import am.api.exception.AMConnectionException;
 import am.api.model.AMDate;
 import am.api.model.AMString;
 
@@ -964,7 +963,7 @@ public interface AMConnection extends AutoCloseable {
 	 */
 	long loginName(AMString loginName);
 
-	AMHandle openConnection(String database, String username, String password) throws AMConnectionException;
+	AMHandle openConnection(String database, String username, String password);
 
 	/**
 	 * This function destroys a record.

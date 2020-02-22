@@ -22,7 +22,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import am.api.AMConnection;
 import am.api.AMHandle;
-import am.api.exception.AMConnectionException;
 import am.api.model.AMDate;
 import am.api.model.AMString;
 import am.api.osgi.XAAMConnectionEnlistingWrapper;
@@ -397,7 +396,7 @@ public final class AMConnectionWrapper implements AMConnection {
 		return connection.loginName(loginName);
 	}
 
-	public AMHandle openConnection(String database, String username, String password) throws AMConnectionException {
+	public AMHandle openConnection(String database, String username, String password)  {
 		return connection.openConnection(database, username, password);
 	}
 

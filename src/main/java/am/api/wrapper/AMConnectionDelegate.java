@@ -828,7 +828,7 @@ public class AMConnectionDelegate {
 		return status;
 	}
 
-	public AMHandle openConnection(String database, String username, String password) throws AMConnectionException {
+	public AMHandle openConnection(String database, String username, String password) {
 
 		if (connection != Pointer.NULL) {
 			throw new UnsupportedOperationException(NLS.ERRORS.getString("connection.multiple.open"));
@@ -950,7 +950,7 @@ public class AMConnectionDelegate {
 
 			handle = new AMHandleImpl(Integer.toString(pointer.hashCode()), handleType, functionSource);
 
-			if (false == handleMap.containsKey(handle)) {
+			if (!handleMap.containsKey(handle)) {
 				handleMap.put(handle, new HandleMetaData(pointer));
 			}
 
@@ -1063,9 +1063,8 @@ public class AMConnectionDelegate {
 
 		checkInternalState();
 
-		long status = amLibrary.AmStartTransactionW(connection).longValue();
+		return amLibrary.AmStartTransactionW(connection).longValue();
 
-		return status;
 	}
 
 	public String toString() {

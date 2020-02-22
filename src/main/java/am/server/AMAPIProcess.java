@@ -37,6 +37,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import com.sun.jna.platform.win32.Kernel32;
+
 import am.api.AMHandle;
 import am.api.exception.AMConnectionException;
 import am.api.exception.CallTimeOutException;
@@ -47,8 +49,6 @@ import am.api.wrapper.AMConnectionDelegate;
 import am.server.client.AMLibraryRemote;
 import am.server.client.ReturnWithString;
 import am.server.tasks.*;
-
-import com.sun.jna.platform.win32.Kernel32;
 
 public class AMAPIProcess implements AMLibraryRemote {
 
@@ -154,9 +154,7 @@ public class AMAPIProcess implements AMLibraryRemote {
 
 			}
 
-		} catch (Throwable e) {
-
-			e.printStackTrace();
+		} catch (Exception e) {
 
 			LOGGER.log(Level.SEVERE, e.getMessage());
 
@@ -233,7 +231,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -255,7 +256,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -272,7 +276,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -289,7 +296,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -306,7 +316,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -323,7 +336,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -340,7 +356,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -357,7 +376,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -374,7 +396,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return new ReturnWithString(resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS), dateAsIntlStr);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -391,7 +416,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return new ReturnWithString(resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS), dateAsStr);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -408,7 +436,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return new ReturnWithString(resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS), dblAsString);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -426,7 +457,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return new ReturnWithString(resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS), dblAsString);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -443,7 +477,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -460,7 +497,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -477,7 +517,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -494,7 +537,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -511,7 +557,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -528,7 +577,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -545,10 +597,12 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
-
 	}
 
 	@Override
@@ -562,7 +616,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -579,7 +636,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -596,7 +656,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -613,7 +676,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -630,7 +696,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -649,7 +718,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -668,7 +740,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -687,7 +762,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -704,7 +782,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -721,7 +802,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -739,7 +823,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -757,7 +844,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -774,7 +864,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -791,7 +884,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -808,7 +904,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -826,7 +925,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -844,7 +946,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -862,7 +967,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -879,7 +987,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -896,7 +1007,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -914,7 +1028,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -930,7 +1047,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -952,7 +1072,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -969,7 +1092,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -986,7 +1112,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1003,7 +1132,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1019,7 +1151,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1037,7 +1172,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1054,7 +1192,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1071,7 +1212,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1088,7 +1232,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1104,7 +1251,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1121,7 +1271,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1139,7 +1292,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1155,7 +1311,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1173,7 +1332,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1190,7 +1352,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1208,7 +1373,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1225,7 +1393,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1241,7 +1412,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1258,7 +1432,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1275,7 +1452,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1291,7 +1471,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1308,7 +1491,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1325,7 +1511,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1341,7 +1530,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1358,9 +1550,13 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
+
 	}
 
 	@Override
@@ -1374,7 +1570,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1392,7 +1591,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1412,7 +1614,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1437,7 +1642,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1454,7 +1662,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1471,7 +1682,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1488,7 +1702,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1505,7 +1722,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
@@ -1522,7 +1742,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1539,7 +1762,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1556,14 +1782,16 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 	}
 
 	@Override
-	public AMHandle openConnection(String database, String username, String password)
-			throws RemoteException, AMConnectionException {
+	public AMHandle openConnection(String database, String username, String password) throws RemoteException {
 
 		assertValidState();
 
@@ -1582,7 +1810,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return connection;
 		} catch (TimeoutException e) {
 			throw new AMConnectionException(new CallTimeOutException(e));
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1599,7 +1830,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1622,7 +1856,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return handle;
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1639,7 +1876,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1656,7 +1896,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1673,7 +1916,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1690,7 +1936,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1707,7 +1956,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1724,7 +1976,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1741,7 +1996,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1758,7 +2016,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1777,7 +2038,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1792,7 +2056,7 @@ public class AMAPIProcess implements AMLibraryRemote {
 		try {
 			List<AMHandle> keys = resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 
-			if (false == keys.isEmpty()) {
+			if (!keys.isEmpty()) {
 
 				LOGGER.log(Level.WARNING, "Registered Handles still exist, might have a leak.");
 
@@ -1803,7 +2067,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1820,7 +2087,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1843,7 +2113,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1861,7 +2134,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1878,7 +2154,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1895,7 +2174,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1912,7 +2194,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1950,7 +2235,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1967,7 +2255,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 
@@ -1984,7 +2275,10 @@ public class AMAPIProcess implements AMLibraryRemote {
 			return resultJob.get(getCallTimeOutInMs(), TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			throw handleTimeOut(e);
-		} catch (ExecutionException | InterruptedException e) {
+		} catch (ExecutionException e) {
+			throw new IllegalStateException(e);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
 		}
 

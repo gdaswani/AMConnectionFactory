@@ -18,12 +18,10 @@ package am.api;
 
 import javax.transaction.xa.XAResource;
 
-import am.api.exception.AMConnectionException;
-
 public interface XAAMConnection {
 	void close();
 
-	AMConnection getConnection() throws AMConnectionException;
+	AMConnection getConnection();
 
 	XAResource getXAResource();
 }

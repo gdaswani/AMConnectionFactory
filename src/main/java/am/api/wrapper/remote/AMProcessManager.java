@@ -291,7 +291,7 @@ public class AMProcessManager {
 	}
 
 	public void setLogPath(String logPath) {
-		this.logPath = logPath.endsWith("\\") ? logPath : logPath + "\\";
+		this.logPath = logPath.endsWith(File.separator) ? logPath : logPath + File.separator;
 	}
 
 	public void setMaxPoolSize(int maxPoolSize) {

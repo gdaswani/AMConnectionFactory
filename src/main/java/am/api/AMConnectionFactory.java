@@ -16,17 +16,13 @@
  */
 package am.api;
 
-import java.io.Serializable;
-
-import am.api.exception.AMConnectionException;
 import am.api.model.AMCredential;
 
-public interface AMConnectionFactory extends Serializable {
+public interface AMConnectionFactory {
 
-	AMConnection getConnection() throws AMConnectionException;
+	AMConnection getConnection();
 
-	AMConnection getConnection(AMCredential credential)
-			throws AMConnectionException;
+	AMConnection getConnection(AMCredential credential);
 
 	void performCleanup();
 

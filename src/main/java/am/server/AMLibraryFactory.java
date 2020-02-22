@@ -41,38 +41,32 @@ public class AMLibraryFactory {
 			try {
 				Properties properties = new Properties();
 
-				configStream = AMLibraryFactory.class
-						.getResourceAsStream(configFilePath);
+				configStream = AMLibraryFactory.class.getResourceAsStream(configFilePath);
 
 				if (configStream != null) {
 					properties.load(configStream);
 
 					String apiLib = properties.getProperty("AMAPI_LIB");
 
-					if (false == properties.isEmpty()) {
+					if (!properties.isEmpty()) {
 
 						System.loadLibrary(apiLib);
 
-						INSTANCE = (AMLibrary) Native.loadLibrary(apiLib,
-								AMLibrary.class);
+						INSTANCE = Native.loadLibrary(apiLib, AMLibrary.class);
 
 						INSTANCE.AmStartup();
 
 					} else {
-						throw new IllegalStateException(
-								String.format("properties file [%s] is empty",
-										configFilePath));
+						throw new IllegalStateException(String.format("properties file [%s] is empty", configFilePath));
 					}
 				} else {
-					throw new IllegalStateException(String.format(
-							"could not load properties file [%s]",
-							configFilePath));
+					throw new IllegalStateException(
+							String.format("could not load properties file [%s]", configFilePath));
 				}
 
 			} catch (UnsatisfiedLinkError | IOException error) {
-				throw new IllegalStateException(String.format(
-						"Could not load Asset Manager native library: %s",
-						error.getMessage()));
+				throw new IllegalStateException(
+						String.format("Could not load Asset Manager native library: %s", error.getMessage()));
 			}
 
 		}
@@ -95,13 +89,11 @@ public class AMLibraryFactory {
 	}
 
 	public int hashCode() {
-		return new HashCodeBuilder(101, 1).appendSuper(super.hashCode())
-				.append(INSTANCE).toHashCode();
+		return new HashCodeBuilder(101, 1).appendSuper(super.hashCode()).append(INSTANCE).toHashCode();
 	}
 
 	public String toString() {
-		return new ToStringBuilder(this).appendSuper(super.toString())
-				.append("INSTANCE", INSTANCE).toString();
+		return new ToStringBuilder(this).appendSuper(super.toString()).append("INSTANCE", INSTANCE).toString();
 	}
 
 }

@@ -41,8 +41,7 @@ import am.server.client.ReturnWithString;
 
 final class AMConnectionRemote extends AMBaseConnection {
 
-	private final static Logger logger = Logger
-			.getLogger(AMConnectionRemote.class);
+	private final static Logger logger = Logger.getLogger(AMConnectionRemote.class);
 
 	private final AMCredential credential;
 
@@ -54,8 +53,8 @@ final class AMConnectionRemote extends AMBaseConnection {
 
 	private final int serverPort;
 
-	public AMConnectionRemote(ConnectionPool pool, AMCredential credential,
-			int serverPort, long defaultCallTimeOutInMs) {
+	public AMConnectionRemote(ConnectionPool pool, AMCredential credential, int serverPort,
+			long defaultCallTimeOutInMs) {
 
 		super();
 
@@ -69,8 +68,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 			this.defaultCallTimeOutInMs = defaultCallTimeOutInMs;
 		}
 
-		String rmiPath = String.format("rmi://localhost:%1$d/%2$s", serverPort,
-				AMAPIProcess.class.getName());
+		String rmiPath = String.format("rmi://localhost:%1$d/%2$s", serverPort, AMAPIProcess.class.getName());
 
 		logger.info("rmiPath={}", rmiPath);
 
@@ -78,8 +76,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 			remoteLibrary = (AMLibraryRemote) Naming.lookup(rmiPath);
 			logger.debug("remoteLibrary={}", remoteLibrary);
 			remoteLibrary.setCallTimeOutInMs(this.defaultCallTimeOutInMs);
-			logger.debug("setting callTimeOutInMs to default value {}",
-					this.defaultCallTimeOutInMs);
+			logger.debug("setting callTimeOutInMs to default value {}", this.defaultCallTimeOutInMs);
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			throw new IllegalStateException(e);
 		}
@@ -115,14 +112,12 @@ final class AMConnectionRemote extends AMBaseConnection {
 	public void close() {
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("Current Thread = {}", Thread.currentThread()
-					.toString());
+			logger.debug("Current Thread = {}", Thread.currentThread().toString());
 		}
 
 		if (pool != null) {
 
-			logger.debug(String.format("Returning connection [%s] to [%s]",
-					this, pool));
+			logger.debug(String.format("Returning connection [%s] to [%s]", this, pool));
 
 			pool.returnObject(credential, this);
 
@@ -149,8 +144,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long connectionName(AMString connectionName) {
 		try {
-			ReturnWithString returnValue = remoteLibrary
-					.connectionName(connectionName);
+			ReturnWithString returnValue = remoteLibrary.connectionName(connectionName);
 
 			connectionName.setBuffer(returnValue.getStringVal().getBuffer());
 
@@ -214,8 +208,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long convertDateUnixToIntl(long UnixDate, AMString dateAsIntlStr) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary
-					.convertDateUnixToIntl(UnixDate, dateAsIntlStr);
+			ReturnWithString returnWithStr = remoteLibrary.convertDateUnixToIntl(UnixDate, dateAsIntlStr);
 
 			dateAsIntlStr.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -231,8 +224,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long convertDateUnixToString(long dateAsUnix, AMString dateAsStr) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary
-					.convertDateUnixToString(dateAsUnix, dateAsStr);
+			ReturnWithString returnWithStr = remoteLibrary.convertDateUnixToString(dateAsUnix, dateAsStr);
 
 			dateAsStr.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -248,8 +240,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long convertDoubleToString(double dSrc, AMString dblAsString) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary
-					.convertDoubleToString(dSrc, dblAsString);
+			ReturnWithString returnWithStr = remoteLibrary.convertDoubleToString(dSrc, dblAsString);
 
 			dblAsString.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -263,11 +254,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long convertMonetaryToString(double dMonetarySrc,
-			AMString dblAsString) {
+	public long convertMonetaryToString(double dMonetarySrc, AMString dblAsString) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary
-					.convertMonetaryToString(dMonetarySrc, dblAsString);
+			ReturnWithString returnWithStr = remoteLibrary.convertMonetaryToString(dMonetarySrc, dblAsString);
 
 			dblAsString.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -305,11 +294,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long createLink(AMHandle srcRecHandle, String linkName,
-			AMHandle srcDstHandle) {
+	public long createLink(AMHandle srcRecHandle, String linkName, AMHandle srcDstHandle) {
 		try {
-			return remoteLibrary.createLink(srcRecHandle, linkName,
-					srcDstHandle);
+			return remoteLibrary.createLink(srcRecHandle, linkName, srcDstHandle);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 			throw t;
@@ -427,13 +414,11 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long dbGetLimitedList(String aqlQuery, AMString result,
-			String colSeparator, String lineSeparator, String idSeperator,
-			long maxSize, long errorType) {
+	public long dbGetLimitedList(String aqlQuery, AMString result, String colSeparator, String lineSeparator,
+			String idSeperator, long maxSize, long errorType) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.dbGetLimitedList(
-					aqlQuery, result, colSeparator, lineSeparator, idSeperator,
-					maxSize, errorType);
+			ReturnWithString returnWithStr = remoteLibrary.dbGetLimitedList(aqlQuery, result, colSeparator,
+					lineSeparator, idSeperator, maxSize, errorType);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -447,11 +432,11 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long dbGetList(String aqlQuery, AMString result,
-			String colSeparator, String lineSeparator, String idSeperator) {
+	public long dbGetList(String aqlQuery, AMString result, String colSeparator, String lineSeparator,
+			String idSeperator) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.dbGetList(aqlQuery,
-					result, colSeparator, lineSeparator, idSeperator);
+			ReturnWithString returnWithStr = remoteLibrary.dbGetList(aqlQuery, result, colSeparator, lineSeparator,
+					idSeperator);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -465,11 +450,11 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long dbGetListEx(String aqlQuery, AMString result,
-			String colSeparator, String lineSeparator, String idSeperator) {
+	public long dbGetListEx(String aqlQuery, AMString result, String colSeparator, String lineSeparator,
+			String idSeperator) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.dbGetListEx(
-					aqlQuery, result, colSeparator, lineSeparator, idSeperator);
+			ReturnWithString returnWithStr = remoteLibrary.dbGetListEx(aqlQuery, result, colSeparator, lineSeparator,
+					idSeperator);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -507,11 +492,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long dbGetString(String query, AMString result, String colSeparator,
-			String lineSeparator) {
+	public long dbGetString(String query, AMString result, String colSeparator, String lineSeparator) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.dbGetString(query,
-					result, colSeparator, lineSeparator);
+			ReturnWithString returnWithStr = remoteLibrary.dbGetString(query, result, colSeparator, lineSeparator);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -525,11 +508,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long dbGetStringEx(String query, AMString result,
-			String colSeparator, String lineSeparator) {
+	public long dbGetStringEx(String query, AMString result, String colSeparator, String lineSeparator) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.dbGetStringEx(query,
-					result, colSeparator, lineSeparator);
+			ReturnWithString returnWithStr = remoteLibrary.dbGetStringEx(query, result, colSeparator, lineSeparator);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -543,11 +524,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long deleteLink(AMHandle srcRecHandle, String linkName,
-			AMHandle srcDstHandle) {
+	public long deleteLink(AMHandle srcRecHandle, String linkName, AMHandle srcDstHandle) {
 		try {
-			return remoteLibrary.deleteLink(srcRecHandle, linkName,
-					srcDstHandle);
+			return remoteLibrary.deleteLink(srcRecHandle, linkName, srcDstHandle);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 			throw t;
@@ -581,11 +560,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long enumValList(String enumName, AMString value,
-			long caseSensitive, String lineSeparator) {
+	public long enumValList(String enumName, AMString value, long caseSensitive, String lineSeparator) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.enumValList(
-					enumName, value, caseSensitive, lineSeparator);
+			ReturnWithString returnWithStr = remoteLibrary.enumValList(enumName, value, caseSensitive, lineSeparator);
 
 			value.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -609,18 +586,14 @@ final class AMConnectionRemote extends AMBaseConnection {
 			return false;
 		}
 		AMConnectionRemote rhs = (AMConnectionRemote) obj;
-		return new EqualsBuilder().appendSuper(super.equals(obj))
-				.append(serverPort, rhs.serverPort)
-				.append(credential, rhs.credential)
-				.append(remoteLibrary, rhs.remoteLibrary).isEquals();
+		return new EqualsBuilder().appendSuper(super.equals(obj)).append(serverPort, rhs.serverPort)
+				.append(credential, rhs.credential).append(remoteLibrary, rhs.remoteLibrary).isEquals();
 	}
 
 	@Override
-	public AMHandle executeActionById(long actionId, String tableName,
-			long recordId) {
+	public AMHandle executeActionById(long actionId, String tableName, long recordId) {
 		try {
-			return remoteLibrary.executeActionById(actionId, tableName,
-					recordId);
+			return remoteLibrary.executeActionById(actionId, tableName, recordId);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 			throw t;
@@ -630,11 +603,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public AMHandle executeActionByName(String sqlName, String tableName,
-			long recordId) {
+	public AMHandle executeActionByName(String sqlName, String tableName, long recordId) {
 		try {
-			return remoteLibrary.executeActionByName(sqlName, tableName,
-					recordId);
+			return remoteLibrary.executeActionByName(sqlName, tableName, recordId);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 			throw t;
@@ -670,8 +641,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long formatCurrency(double amount, String currency, AMString result) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.formatCurrency(
-					amount, currency, result);
+			ReturnWithString returnWithStr = remoteLibrary.formatCurrency(amount, currency, result);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -687,8 +657,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long formatLong(long number, String format, AMString result) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.formatLong(number,
-					format, result);
+			ReturnWithString returnWithStr = remoteLibrary.formatLong(number, format, result);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -702,11 +671,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long getComputeString(String tableName, long recordId,
-			String template, AMString result) {
+	public long getComputeString(String tableName, long recordId, String template, AMString result) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.getComputeString(
-					tableName, recordId, template, result);
+			ReturnWithString returnWithStr = remoteLibrary.getComputeString(tableName, recordId, template, result);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -770,8 +737,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long getFieldDescription(AMHandle fieldHandle, AMString target) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.getFieldDescription(
-					fieldHandle, target);
+			ReturnWithString returnWithStr = remoteLibrary.getFieldDescription(fieldHandle, target);
 
 			target.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -799,8 +765,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long getFieldFormat(AMHandle fldHandle, AMString target) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.getFieldFormat(
-					fldHandle, target);
+			ReturnWithString returnWithStr = remoteLibrary.getFieldFormat(fldHandle, target);
 
 			target.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -814,11 +779,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long getFieldFormatFromName(String tableName, String fieldName,
-			AMString result) {
+	public long getFieldFormatFromName(String tableName, String fieldName, AMString result) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary
-					.getFieldFormatFromName(tableName, fieldName, result);
+			ReturnWithString returnWithStr = remoteLibrary.getFieldFormatFromName(tableName, fieldName, result);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -846,8 +809,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long getFieldLabel(AMHandle fldHandle, AMString result) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.getFieldLabel(
-					fldHandle, result);
+			ReturnWithString returnWithStr = remoteLibrary.getFieldLabel(fldHandle, result);
 
 			result.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -861,11 +823,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long getFieldLabelFromName(String tableName, String fieldName,
-			AMString fieldLabel) {
+	public long getFieldLabelFromName(String tableName, String fieldName, AMString fieldLabel) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary
-					.getFieldLabelFromName(tableName, fieldName, fieldLabel);
+			ReturnWithString returnWithStr = remoteLibrary.getFieldLabelFromName(tableName, fieldName, fieldLabel);
 
 			fieldLabel.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -891,11 +851,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long getFieldName(AMHandle objHandle, long fieldPositon,
-			AMString fieldName) {
+	public long getFieldName(AMHandle objHandle, long fieldPositon, AMString fieldName) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.getFieldName(
-					objHandle, fieldPositon, fieldName);
+			ReturnWithString returnWithStr = remoteLibrary.getFieldName(objHandle, fieldPositon, fieldName);
 
 			fieldName.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -923,8 +881,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long getFieldSqlName(AMHandle fldHandle, AMString fieldSQLName) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.getFieldSqlName(
-					fldHandle, fieldSQLName);
+			ReturnWithString returnWithStr = remoteLibrary.getFieldSqlName(fldHandle, fieldSQLName);
 
 			fieldSQLName.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -938,12 +895,10 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long getFieldStrValue(AMHandle qryHandle, long position,
-			AMString target) {
+	public long getFieldStrValue(AMHandle qryHandle, long position, AMString target) {
 		try {
 
-			ReturnWithString returnValue = remoteLibrary.getFieldStrValue(
-					qryHandle, position, target);
+			ReturnWithString returnValue = remoteLibrary.getFieldStrValue(qryHandle, position, target);
 
 			target.setBuffer(returnValue.getStringVal().getBuffer());
 
@@ -1065,14 +1020,11 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long getSelfFromMainId(String tableName, long recordId,
-			AMString recordDescription) {
+	public long getSelfFromMainId(String tableName, long recordId, AMString recordDescription) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.getSelfFromMainId(
-					tableName, recordId, recordDescription);
+			ReturnWithString returnWithStr = remoteLibrary.getSelfFromMainId(tableName, recordId, recordDescription);
 
-			recordDescription.setBuffer(returnWithStr.getStringVal()
-					.getBuffer());
+			recordDescription.setBuffer(returnWithStr.getStringVal().getBuffer());
 
 			return returnWithStr.getReturnValue();
 		} catch (CallTimeOutException t) {
@@ -1090,8 +1042,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long getVersion(AMString amVersion) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary
-					.getVersion(amVersion);
+			ReturnWithString returnWithStr = remoteLibrary.getVersion(amVersion);
 
 			amVersion.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -1105,17 +1056,14 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	public int hashCode() {
-		return new HashCodeBuilder(99, 1).appendSuper(super.hashCode())
-				.append(serverPort).append(credential).append(remoteLibrary)
-				.toHashCode();
+		return new HashCodeBuilder(99, 1).appendSuper(super.hashCode()).append(serverPort).append(credential)
+				.append(remoteLibrary).toHashCode();
 	}
 
 	@Override
-	public long importDocument(long docId, String tableName, String fileName,
-			String category, String designation) {
+	public long importDocument(long docId, String tableName, String fileName, String category, String designation) {
 		try {
-			return remoteLibrary.importDocument(docId, tableName, fileName,
-					category, designation);
+			return remoteLibrary.importDocument(docId, tableName, fileName, category, designation);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 			throw t;
@@ -1163,8 +1111,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long lastErrorMsg(AMString errorMessage) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary
-					.lastErrorMsg(errorMessage);
+			ReturnWithString returnWithStr = remoteLibrary.lastErrorMsg(errorMessage);
 
 			errorMessage.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -1178,11 +1125,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long listToString(AMString target, String source, String colSep,
-			String lineSep, String idSep) {
+	public long listToString(AMString target, String source, String colSep, String lineSep, String idSep) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.listToString(target,
-					source, colSep, lineSep, idSep);
+			ReturnWithString returnWithStr = remoteLibrary.listToString(target, source, colSep, lineSep, idSep);
 
 			target.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -1224,8 +1169,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public AMHandle openConnection(String database, String username,
-			String password) throws AMConnectionException {
+	public AMHandle openConnection(String database, String username, String password) {
 		try {
 			return remoteLibrary.openConnection(database, username, password);
 		} catch (Exception e) {
@@ -1377,8 +1321,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	public void resetCallTimeOut() {
 
 		try {
-			logger.debug("resetting callTimeOutInMs to default value {}",
-					defaultCallTimeOutInMs);
+			logger.debug("resetting callTimeOutInMs to default value {}", defaultCallTimeOutInMs);
 			remoteLibrary.setCallTimeOutInMs(this.defaultCallTimeOutInMs);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
@@ -1417,11 +1360,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long setFieldDateOnlyValue(AMHandle recHandle, String fieldName,
-			AMDate dateOnlyValue) {
+	public long setFieldDateOnlyValue(AMHandle recHandle, String fieldName, AMDate dateOnlyValue) {
 		try {
-			return remoteLibrary.setFieldDateOnlyValue(recHandle, fieldName,
-					dateOnlyValue);
+			return remoteLibrary.setFieldDateOnlyValue(recHandle, fieldName, dateOnlyValue);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 			throw t;
@@ -1431,11 +1372,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long setFieldDateValue(AMHandle recHandle, String fieldName,
-			AMDate dateTimeValue) {
+	public long setFieldDateValue(AMHandle recHandle, String fieldName, AMDate dateTimeValue) {
 		try {
-			return remoteLibrary.setFieldDateValue(recHandle, fieldName,
-					dateTimeValue);
+			return remoteLibrary.setFieldDateValue(recHandle, fieldName, dateTimeValue);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 			throw t;
@@ -1445,11 +1384,9 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long setFieldDoubleValue(AMHandle recHandle, String fieldName,
-			double value) {
+	public long setFieldDoubleValue(AMHandle recHandle, String fieldName, double value) {
 		try {
-			return remoteLibrary.setFieldDoubleValue(recHandle, fieldName,
-					value);
+			return remoteLibrary.setFieldDoubleValue(recHandle, fieldName, value);
 		} catch (CallTimeOutException t) {
 			setProcessingFlag(AMConnection.FLAG_NO_REUSE);
 			throw t;
@@ -1459,8 +1396,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long setFieldLongValue(AMHandle recHandle, String fieldName,
-			long value) {
+	public long setFieldLongValue(AMHandle recHandle, String fieldName, long value) {
 		try {
 			return remoteLibrary.setFieldLongValue(recHandle, fieldName, value);
 		} catch (CallTimeOutException t) {
@@ -1472,8 +1408,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	@Override
-	public long setFieldStrValue(AMHandle recHandle, String fieldName,
-			String value) {
+	public long setFieldStrValue(AMHandle recHandle, String fieldName, String value) {
 		try {
 			return remoteLibrary.setFieldStrValue(recHandle, fieldName, value);
 		} catch (CallTimeOutException t) {
@@ -1496,8 +1431,7 @@ final class AMConnectionRemote extends AMBaseConnection {
 	@Override
 	public long sqlTextConst(String aqlQuery, AMString target) {
 		try {
-			ReturnWithString returnWithStr = remoteLibrary.sqlTextConst(
-					aqlQuery, target);
+			ReturnWithString returnWithStr = remoteLibrary.sqlTextConst(aqlQuery, target);
 
 			target.setBuffer(returnWithStr.getStringVal().getBuffer());
 
@@ -1523,10 +1457,8 @@ final class AMConnectionRemote extends AMBaseConnection {
 	}
 
 	public String toString() {
-		return new ToStringBuilder(this).appendSuper(super.toString())
-				.append("serverPort", serverPort)
-				.append("credential", credential)
-				.append("remoteLibrary", remoteLibrary).toString();
+		return new ToStringBuilder(this).appendSuper(super.toString()).append("serverPort", serverPort)
+				.append("credential", credential).append("remoteLibrary", remoteLibrary).toString();
 	}
 
 	@Override

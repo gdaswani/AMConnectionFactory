@@ -82,17 +82,15 @@ public class XAAMConnectionEnlistingWrapper implements AMConnectionFactory, Seri
 		super();
 	}
 
-	private void enlist(Transaction transaction, XAResource xaResource, Object key) throws AMConnectionException {
+	private void enlist(Transaction transaction, XAResource xaResource, Object key) {
 		try {
 			transaction.enlistResource(xaResource);
 			transaction.registerSynchronization(new TransactionListener(key));
 		} catch (Exception e) {
 			try {
 				transactionManager.setRollbackOnly();
-			} catch (IllegalStateException e1) {
-				e1.printStackTrace();
-			} catch (SystemException e1) {
-				e1.printStackTrace();
+			} catch (IllegalStateException | SystemException e1) {
+				throw new IllegalStateException(e1);
 			}
 		}
 	}
@@ -113,12 +111,12 @@ public class XAAMConnectionEnlistingWrapper implements AMConnectionFactory, Seri
 	}
 
 	@Override
-	public AMConnection getConnection() throws AMConnectionException {
+	public AMConnection getConnection() {
 		return getConnection(null);
 	}
 
 	@Override
-	public AMConnection getConnection(AMCredential credential) throws AMConnectionException {
+	public AMConnection getConnection(AMCredential credential) {
 
 		Transaction transaction = getTransaction();
 
@@ -158,8 +156,7 @@ public class XAAMConnectionEnlistingWrapper implements AMConnectionFactory, Seri
 		}
 	}
 
-	private AMConnection getEnlistedConnection(AMConnection connection, boolean enlisted, Object key)
-			throws AMConnectionException {
+	private AMConnection getEnlistedConnection(AMConnection connection, boolean enlisted, Object key) {
 
 		AMConnectionWrapper wrapper = new AMConnectionWrapper(connection, enlisted, key, this);
 
@@ -168,14 +165,12 @@ public class XAAMConnectionEnlistingWrapper implements AMConnectionFactory, Seri
 		return wrapper;
 	}
 
-	private Transaction getTransaction() throws AMConnectionException {
+	private Transaction getTransaction() {
 		try {
 			return (transactionManager.getStatus() == Status.STATUS_ACTIVE) ? transactionManager.getTransaction()
 					: null;
 		} catch (SystemException e) {
-			AMConnectionException amE = new AMConnectionException(NLS.ERRORS.getString("transaction.cannot.retrieve"),
-					e);
-			throw amE;
+			throw new AMConnectionException(NLS.ERRORS.getString("transaction.cannot.retrieve"), e);
 		}
 	}
 

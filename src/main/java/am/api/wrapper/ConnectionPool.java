@@ -94,7 +94,7 @@ public class ConnectionPool {
 				.append(timeBetweenEvictionRunsMs, rhs.timeBetweenEvictionRunsMs).isEquals();
 	}
 
-	public AMConnection getConnection(AMCredential credential) throws AMConnectionException {
+	public AMConnection getConnection(AMCredential credential) {
 
 		if (logger.isDebugEnabled()) {
 			logger.debug(String.format("credential: [%s]", credential));
@@ -121,9 +121,7 @@ public class ConnectionPool {
 
 		} catch (NoSuchElementException e) {
 			logger.warn(String.format("Pool Exhausted, message=[%s]", e.getMessage()));
-			AMConnectionException connE = new AMConnectionException(
-					NLS.ERRORS.getString("connection.cannot.borrow.exhausted"), e);
-			throw connE;
+			throw new AMConnectionException(NLS.ERRORS.getString("connection.cannot.borrow.exhausted"), e);
 		} catch (Exception e) {
 
 			if (e instanceof AMConnectionException) {
@@ -132,10 +130,7 @@ public class ConnectionPool {
 
 			} else {
 
-				AMConnectionException connE = new AMConnectionException(
-						NLS.ERRORS.getString("connection.cannot.borrow.exception"), e);
-
-				throw connE;
+				throw new AMConnectionException(NLS.ERRORS.getString("connection.cannot.borrow.exception"), e);
 
 			}
 

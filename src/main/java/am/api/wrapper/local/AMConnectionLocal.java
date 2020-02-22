@@ -24,7 +24,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
 import am.api.AMHandle;
-import am.api.exception.AMConnectionException;
 import am.api.model.AMCredential;
 import am.api.model.AMDate;
 import am.api.model.AMString;
@@ -677,7 +676,7 @@ public final class AMConnectionLocal extends AMBaseConnection {
 	}
 
 	@Override
-	public AMHandle openConnection(String database, String username, String password) throws AMConnectionException {
+	public AMHandle openConnection(String database, String username, String password) {
 
 		AMHandle handle = delegate.openConnection(database, username, password);
 
@@ -777,7 +776,7 @@ public final class AMConnectionLocal extends AMBaseConnection {
 
 		List<AMHandle> keys = delegate.getHandleKeys();
 
-		if (false == keys.isEmpty()) {
+		if (!keys.isEmpty()) {
 
 			logger.warn("Registered Handles still exist, might have a leak.");
 

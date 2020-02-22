@@ -59,8 +59,7 @@ public class AMDate implements Serializable {
 
 	public final static Date toDate(long unixUTC) {
 
-		return unixUTC > AMDate.NULL_DATE_EQUIV ? new Date(unixUTC * 1000l)
-				: null;
+		return unixUTC > AMDate.NULL_DATE_EQUIV ? new Date(unixUTC * 1000l) : null;
 
 	}
 
@@ -85,8 +84,7 @@ public class AMDate implements Serializable {
 			return false;
 		}
 		AMDate rhs = (AMDate) obj;
-		return new EqualsBuilder().appendSuper(super.equals(obj))
-				.append(value, rhs.value).isEquals();
+		return new EqualsBuilder().appendSuper(super.equals(obj)).append(value, rhs.value).isEquals();
 	}
 
 	public long getValue() {
@@ -102,7 +100,7 @@ public class AMDate implements Serializable {
 	}
 
 	public final Date toDate() {
-		return new Date((long) value * 1000l);
+		return new Date(value * 1000l);
 	}
 
 	public String toString() {

@@ -147,7 +147,7 @@ public class PoolableObjectFactory implements BasePoolableObjectFactory {
 		logger.debug(String.format("isConnected = [%1$s], reuseCount = [%2$d], noReuse = [%3$s]", isConnected,
 				reuseCount, Boolean.toString(noReuse)));
 
-		if (false == noReuse) {
+		if (!noReuse) {
 
 			if (maxReuse == 0 || maxReuse > 0 && reuseCount <= maxReuse) {
 				if (1L == isConnected) {

@@ -20,7 +20,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import am.api.AMHandle;
-import am.api.exception.AMConnectionException;
 import am.api.model.AMDate;
 import am.api.model.AMString;
 
@@ -1076,7 +1075,7 @@ public interface AMLibraryRemote extends Remote {
 	ReturnWithString loginName(AMString loginName) throws RemoteException;
 
 	AMHandle openConnection(String database, String username, String password)
-			throws RemoteException, AMConnectionException;
+			throws RemoteException;
 
 	/**
 	 * This function destroys a record.

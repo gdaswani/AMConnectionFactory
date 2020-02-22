@@ -16,13 +16,11 @@
  */
 package am.api;
 
-import am.api.exception.AMConnectionException;
 import am.api.model.AMCredential;
 
 public interface XAAMConnectionFactory extends AMConnectionFactory {
-	XAAMConnection getXAConnection() throws AMConnectionException;
+	XAAMConnection getXAConnection();
 
-	XAAMConnection getXAConnection(AMCredential credential)
-			throws AMConnectionException;
+	XAAMConnection getXAConnection(AMCredential credential);
 
 }

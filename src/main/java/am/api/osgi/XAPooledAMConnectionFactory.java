@@ -25,16 +25,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import am.api.AMConnection;
 import am.api.XAAMConnection;
 import am.api.XAAMConnectionFactory;
-import am.api.exception.AMConnectionException;
 import am.api.model.AMCredential;
 import am.api.wrapper.ConnectionPool;
 import am.api.wrapper.LocalXAResource;
 import am.api.wrapper.XAAMConnectionImpl;
 
-public class XAPooledAMConnectionFactory extends ConnectionPool implements
-		XAAMConnectionFactory {
-
-	private final static long serialVersionUID = 1L;
+public class XAPooledAMConnectionFactory extends ConnectionPool implements XAAMConnectionFactory {
 
 	public XAPooledAMConnectionFactory() {
 		super();
@@ -58,27 +54,25 @@ public class XAPooledAMConnectionFactory extends ConnectionPool implements
 	}
 
 	@Override
-	public AMConnection getConnection() throws AMConnectionException {
+	public AMConnection getConnection() {
 		return getConnection(null);
 	}
 
-	public XAAMConnection getXAConnection() throws AMConnectionException {
+	public XAAMConnection getXAConnection() {
 
 		AMConnection connection = getConnection();
 
 		return new XAAMConnectionImpl(connection, createXAResource(connection));
 	}
 
-	public XAAMConnection getXAConnection(AMCredential credential)
-			throws AMConnectionException {
+	public XAAMConnection getXAConnection(AMCredential credential) {
 		AMConnection connection = getConnection(credential);
 
 		return new XAAMConnectionImpl(connection, createXAResource(connection));
 	}
 
 	public int hashCode() {
-		return new HashCodeBuilder(91, 5).appendSuper(super.hashCode())
-				.toHashCode();
+		return new HashCodeBuilder(91, 5).appendSuper(super.hashCode()).toHashCode();
 	}
 
 	public String toString() {
