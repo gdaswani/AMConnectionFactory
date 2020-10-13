@@ -10,7 +10,7 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<junit-version>3.8.1</junit-version>
+		<junit-version>4.13.1</junit-version>
 		<osgicore-version>6.0.0</osgicore-version>
 		<spring-version>5.2.2.RELEASE</spring-version>
 		<validation-version>1.1.0.Final</validation-version>
