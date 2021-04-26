@@ -19,7 +19,7 @@
 		<paxlogging-version>1.11.4</paxlogging-version>
 		<transaction-version>2.2.10</transaction-version>
 		<commonslang3-version>3.9</commonslang3-version>
-		<commonsio-version>2.5</commonsio-version>
+		<commonsio-version>2.7</commonsio-version>
 		<jna-version>5.5.0</jna-version>
 		<surefire-version>2.22.2</surefire-version>
 		<bundle-version>4.2.1</bundle-version>
