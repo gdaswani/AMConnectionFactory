@@ -12,7 +12,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit-version>3.8.1</junit-version>
 		<osgicore-version>6.0.0</osgicore-version>
-		<spring-version>5.2.2.RELEASE</spring-version>
+		<spring-version>5.3.18</spring-version>
 		<validation-version>1.1.0.Final</validation-version>
 		<commons-pool2-version>2.6.2</commons-pool2-version>
 		<jta-version>1.1</jta-version>
